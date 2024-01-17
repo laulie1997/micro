@@ -3,14 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Enable CORS for all origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins (change as needed)
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
 
 # Calculator endpoint
 @app.get("/calculate/{operation}")
@@ -31,7 +31,6 @@ def calculate(operation: str, num1: float, num2: float):
         raise HTTPException(status_code=400, detail="Invalid operation")
 
     return {"operation": operation, "result": result}
-
 
 # http://127.0.0.1:8001
 # uvicorn main:app --reload --port 8001
