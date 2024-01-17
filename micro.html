@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator GUI</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyLXt1+1lYUhh4jDOA/mOp9cM47pNfmUhj"
+          crossorigin="anonymous">
+</head>
+<body class="container mt-5">
+
+<h1 class="text-center">Calculator</h1>
+
+<form id="calculatorForm" class="text-center">
+    <div class="form-group">
+        <label for="num1">Number 1:</label>
+        <input type="number" class="form-control" id="num1" name="num1" required>
+    </div>
+
+    <div class="form-group">
+        <label for="operation">Operation:</label>
+        <select class="form-control" id="operation" name="operation">
+            <option value="add">Addition</option>
+            <option value="subtract">Subtraction</option>
+            <option value="multiply">Multiplication</option>
+            <option value="divide">Division</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="num2">Number 2:</label>
+        <input type="number" class="form-control" id="num2" name="num2" required>
+    </div>
+
+    <button type="button" class="btn btn-primary" onclick="calculate()">Calculate</button>
+</form>
+
+<div id="result" class="mt-3 alert alert-success"></div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<script>
+    async function calculate() {
+        const operation = document.getElementById("operation").value;
+        const num1 = parseFloat(document.getElementById("num1").value);
+        const num2 = parseFloat(document.getElementById("num2").value);
+
+        const response = await fetch(`http://127.0.0.1:8001/calculate/${operation}?num1=${num1}&num2=${num2}`);
+        const data = await response.json();
+
+        document.getElementById("result").innerHTML = `Result: ${data.result}`;
+    }
+</script>
+</body>
+</html>
